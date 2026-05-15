@@ -3,6 +3,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <AssemblyName>Server</AssemblyName>
     <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

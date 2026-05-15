@@ -1,4 +1,4 @@
-namespace UltraMessenger
+namespace Client
 {
     public partial class MainForm : Form
     {
