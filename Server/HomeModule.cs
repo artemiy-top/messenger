@@ -1,35 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Shared;
 using System;
 
 public class HomeModule : ICarterModule
 {
-    public class AuthRequest
-    {
-        public required string Name { get; set; }
-        public required string Password { get; set; }
-    }
-
-    public class RegisterRequest
-    {
-        public required string Name { get; set; }
-        public required string Password { get; set; }
-    }
-
-    public class SendMessageRequest
-    {
-        public required int ChatId { get; set; }
-        public required string Message { get; set; }
-    }
-
-    public class GetLastMessageRequest
-    {
-        public required int ChatId { get; set; }
-    }
-
-
     public void AddRoutes(IEndpointRouteBuilder app) {
         app.MapPost("/auth", (AuthRequest authRequest) =>
         {
+            Console.WriteLine($"Попытка входа пользователя {authRequest.Name} с паролем {authRequest.Password}");
             // TODO
         });
 
@@ -38,7 +16,7 @@ public class HomeModule : ICarterModule
             // TODO
         });
 
-        app.MapPost("/get-last-messages", (HttpRequest request, GetLastMessageRequest getLastMessageRequest) =>
+        app.MapPost("/get-last-messages", (HttpRequest request, GetLastMessagesRequest getLastMessageRequest) =>
         {
             String sessionId = request.Headers.Authorization.ToString().Split("Bearer ")[1];
             // TODO

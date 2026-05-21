@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ServiceStack;
+using Shared;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +21,12 @@ namespace Client
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Вы ввели логин {this.loginTextBox.Text} и пароль {this.passwordMaskedTextBox.Text}");
+            AuthRequest authRequest = new AuthRequest
+            {
+                Name = this.loginTextBox.Text,
+                Password = this.passwordMaskedTextBox.Text,
+            };
+            "http://localhost:5000/auth".PostJsonToUrl(authRequest);
         }
     }
 }
