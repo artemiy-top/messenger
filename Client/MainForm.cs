@@ -1,3 +1,6 @@
+﻿using Message = Shared.Message;
+using Shared;
+
 namespace Client
 {
     public partial class MainForm : Form
@@ -5,6 +8,54 @@ namespace Client
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        bool buttonClicked = false;
+
+        private void sortButton_Click(object sender, EventArgs e)
+        {
+            if (!buttonClicked)
+            {
+                string[] users = this.listBox1.Items
+                   .Cast<string>()
+                   .Order()
+                   .ToArray();
+                this.listBox1.Items.Clear();
+                this.listBox1.Items.AddRange(users);
+                this.buttonClicked = true;
+                this.sortButton.Text = "▼";
+            }
+            else
+            {
+                string[] users = this.listBox1.Items
+                    .Cast<string>()
+                    .OrderDescending()
+                    .ToArray();
+                this.listBox1.Items.Clear();
+                this.listBox1.Items.AddRange(users);
+                this.buttonClicked = false;
+                this.sortButton.Text = "▲";
+            }
+        }
+
+        private void removeAllFriendsButton_Click(object sender, EventArgs e)
+        {
+            this.listBox1.Items.Clear();
+        }
+
+        private void enableDarkThemeButton_Click(object sender, EventArgs e)
+        {
+            this.BackColor = Color.Black;
+            this.ForeColor = Color.White;
+
+            this.listBox1.BackColor = Color.Black;
+            this.listBox1.ForeColor = Color.White;
+
+            this.sortButton.BackColor = Color.Black;
+            this.sortButton.ForeColor = Color.White;
+
+            this.sendMessageButton.BackColor = Color.Black;
+            this.sendMessageButton.ForeColor = Color.White;
         }
     }
 }

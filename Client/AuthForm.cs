@@ -26,7 +26,25 @@ namespace Client
                 Name = this.loginTextBox.Text,
                 Password = this.passwordMaskedTextBox.Text,
             };
-            "http://localhost:5000/auth".PostJsonToUrl(authRequest);
+
+            string sessionId = "http://localhost:5000/auth".PostJsonToUrl(authRequest);
+            if (sessionId == "")
+            {
+                MessageBox.Show("Вы ввели неправильный логин или пароль");
+                return;
+            }
+
+            this.Visible = false;
+            new MainForm().ShowDialog();
+            this.Close();
+        }
+
+        private void passwordMaskedTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                this.loginButton_Click(sender, e);
+            }
         }
     }
 }

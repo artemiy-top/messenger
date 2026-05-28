@@ -47,8 +47,9 @@
             passwordMaskedTextBox.Name = "passwordMaskedTextBox";
             passwordMaskedTextBox.PasswordChar = '*';
             passwordMaskedTextBox.Size = new Size(205, 32);
-            passwordMaskedTextBox.TabIndex = 0;
+            passwordMaskedTextBox.TabIndex = 2;
             passwordMaskedTextBox.Text = "23235";
+            passwordMaskedTextBox.KeyPress += passwordMaskedTextBox_KeyPress;
             // 
             // loginTextBox
             // 
@@ -113,7 +114,7 @@
             loginButton.Location = new Point(75, 161);
             loginButton.Name = "loginButton";
             loginButton.Size = new Size(78, 23);
-            loginButton.TabIndex = 6;
+            loginButton.TabIndex = 3;
             loginButton.Text = "Войти";
             loginButton.UseVisualStyleBackColor = true;
             loginButton.Click += loginButton_Click;

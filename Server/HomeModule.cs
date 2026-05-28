@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Server;
 using Shared;
 using System;
 
@@ -8,7 +9,16 @@ public class HomeModule : ICarterModule
         app.MapPost("/auth", (AuthRequest authRequest) =>
         {
             Console.WriteLine($"Попытка входа пользователя {authRequest.Name} с паролем {authRequest.Password}");
-            // TODO
+
+            string? sessionId = ServerFunctions.Auth(authRequest.Name, authRequest.Password);
+            if (sessionId != null)
+            {
+                return sessionId;
+            }
+            else
+            {
+                return "";
+            }
         });
 
         app.MapPost("/register", (RegisterRequest registerRequest) =>

@@ -9,7 +9,10 @@ namespace Server
 {
     public class ServerStorage
     {
-        public static List<User> Users = new List<User>();
+        public static List<User> Users = new List<User>
+        {
+            new User("John", "12345"),
+        };
         public static List<Chat> Chats = new List<Chat>();
     }
 }
