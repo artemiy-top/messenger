@@ -35,7 +35,7 @@ namespace Client
             }
 
             this.Visible = false;
-            new MainForm().ShowDialog();
+            new MainForm(sessionId).ShowDialog();
             this.Close();
         }
 

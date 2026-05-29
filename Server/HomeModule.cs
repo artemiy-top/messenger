@@ -26,6 +26,21 @@ public class HomeModule : ICarterModule
             // TODO
         });
 
+        app.MapPost("/get-chats", (HttpRequest request) =>
+        {
+            String sessionId = request.Headers.Authorization.ToString().Split("Bearer ")[1];
+            // TODO
+            return new ClientChat[]
+            {
+                new ClientChat
+                {
+                    Id = 1,
+                    Title = "My chat",
+                    LastMessage = "No message",
+                },
+            };
+        });
+
         app.MapPost("/get-last-messages", (HttpRequest request, GetLastMessagesRequest getLastMessageRequest) =>
         {
             String sessionId = request.Headers.Authorization.ToString().Split("Bearer ")[1];

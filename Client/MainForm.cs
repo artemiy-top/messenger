@@ -1,13 +1,24 @@
 ﻿using Message = Shared.Message;
 using Shared;
+using ServiceStack;
 
 namespace Client
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        public string SessionId;
+
+        public MainForm(string sessionId)
         {
             InitializeComponent();
+            this.SessionId = sessionId;
+
+            ClientChat[] chats = "http://localhost:5000/get-chats"
+                .PostJsonToUrl("", (HttpRequestMessage request) =>
+                {
+                    request.AddBearerToken(this.SessionId);
+                })
+                .FromJson<ClientChat[]>();
         }
 
         bool buttonClicked = false;

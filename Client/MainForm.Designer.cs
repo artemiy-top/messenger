@@ -252,6 +252,7 @@
             ClientSize = new Size(1327, 814);
             Controls.Add(splitContainer1);
             Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Топ-Мессенджер";
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);

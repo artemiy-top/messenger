@@ -48,7 +48,7 @@
             passwordMaskedTextBox.PasswordChar = '*';
             passwordMaskedTextBox.Size = new Size(205, 32);
             passwordMaskedTextBox.TabIndex = 2;
-            passwordMaskedTextBox.Text = "23235";
+            passwordMaskedTextBox.Text = "12345";
             passwordMaskedTextBox.KeyPress += passwordMaskedTextBox_KeyPress;
             // 
             // loginTextBox
@@ -58,6 +58,7 @@
             loginTextBox.Name = "loginTextBox";
             loginTextBox.Size = new Size(205, 32);
             loginTextBox.TabIndex = 1;
+            loginTextBox.Text = "John";
             // 
             // label1
             // 
