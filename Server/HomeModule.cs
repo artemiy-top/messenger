@@ -2,6 +2,7 @@
 using Server;
 using Shared;
 using System;
+using System.Linq;
 
 public class HomeModule : ICarterModule
 {
@@ -29,16 +30,26 @@ public class HomeModule : ICarterModule
         app.MapPost("/get-chats", (HttpRequest request) =>
         {
             String sessionId = request.Headers.Authorization.ToString().Split("Bearer ")[1];
-            // TODO
-            return new ClientChat[]
+            User? user = ServerStorage.Users.First((user) => user.SessionId == sessionId);
+            if (user == null)
             {
-                new ClientChat
+                throw new Exception("Access denied!");
+            }
+            Chat[] chats = ServerStorage
+                .Chats
+                .Where((chat) => chat.Users.Contains(user))
+                .ToArray();
+
+            ClientChat[] clientChats = chats
+                .Select((chat) => new ClientChat
                 {
-                    Id = 1,
-                    Title = "My chat",
-                    LastMessage = "No message",
-                },
-            };
+                    Id = chat.Id,
+                    LastMessage = "Последнее сообщение",
+                    Title = chat.Users.First((u) => u.Id != user.Id)!.Name,
+                })
+                .ToArray();
+
+            return clientChats;
         });
 
         app.MapPost("/get-last-messages", (HttpRequest request, GetLastMessagesRequest getLastMessageRequest) =>

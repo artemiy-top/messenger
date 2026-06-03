@@ -19,6 +19,11 @@ namespace Client
                     request.AddBearerToken(this.SessionId);
                 })
                 .FromJson<ClientChat[]>();
+
+            this.listBox1.Items.Clear();
+            this.listBox1
+                .Items
+                .AddRange(chats.Select((chat) => $"{chat.Title} ({chat.LastMessage})").ToArray());   
         }
 
         bool buttonClicked = false;
