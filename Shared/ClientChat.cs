@@ -11,5 +11,10 @@ namespace Shared
         public required string Title { get; set; }
         public required int Id { get; set; }
         public required string? LastMessage { get; set; }
+
+        public override string ToString()
+        {
+            return $"{this.Title} ({this.LastMessage})";
+        }
     }
 }

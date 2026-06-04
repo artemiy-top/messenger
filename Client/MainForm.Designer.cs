@@ -43,7 +43,7 @@
             removeAllFriendsButton = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
-            textBox2 = new TextBox();
+            messagesTextBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -65,6 +65,7 @@
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(464, 750);
             listBox1.TabIndex = 0;
+            listBox1.SelectedValueChanged += listBox1_SelectedValueChanged;
             // 
             // textBox1
             // 
@@ -210,7 +211,7 @@
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 1);
-            tableLayoutPanel1.Controls.Add(textBox2, 0, 0);
+            tableLayoutPanel1.Controls.Add(messagesTextBox, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -235,14 +236,17 @@
             tableLayoutPanel2.Size = new Size(833, 34);
             tableLayoutPanel2.TabIndex = 0;
             // 
-            // textBox2
+            // messagesTextBox
             // 
-            textBox2.Dock = DockStyle.Fill;
-            textBox2.Location = new Point(3, 3);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(833, 768);
-            textBox2.TabIndex = 4;
+            messagesTextBox.Dock = DockStyle.Fill;
+            messagesTextBox.Font = new Font("Segoe UI", 24F);
+            messagesTextBox.Location = new Point(3, 3);
+            messagesTextBox.Multiline = true;
+            messagesTextBox.Name = "messagesTextBox";
+            messagesTextBox.ReadOnly = true;
+            messagesTextBox.ScrollBars = ScrollBars.Vertical;
+            messagesTextBox.Size = new Size(833, 768);
+            messagesTextBox.TabIndex = 4;
             // 
             // MainForm
             // 
@@ -274,7 +278,7 @@
         private TextBox textBox1;
         private Button sendMessageButton;
         private SplitContainer splitContainer1;
-        private TextBox textBox2;
+        private TextBox messagesTextBox;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tableLayoutPanel2;
         private Button sortButton;

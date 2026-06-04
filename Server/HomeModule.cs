@@ -53,6 +53,35 @@ public class HomeModule : ICarterModule
             // TODO
         });
 
+        app.MapGet("/get-chat/{chatId}", (HttpRequest request, int chatId) =>
+        {
+            String sessionId = request.Headers.Authorization.ToString().Split("Bearer ")[1];
+            User? user = ServerStorage.Users.First((user) => user.SessionId == sessionId);
+            if (user == null)
+            {
+                throw new Exception("Access denied!");
+            }
+
+            Chat? chat = ServerStorage.Chats.First((chat) => chat.Id == chatId);
+            if (chat == null)
+            {
+                throw new Exception("Такого чата нет!");
+            }
+
+            ClientMessage[] clientMessages = chat
+                .Messages
+                .Select((message) => new ClientMessage
+                {
+                    Text = message.Text,
+                    SenderId = message.Sender.Id,
+                    SenderName = message.Sender.Name,
+                    DateTime = message.DateTime
+                })
+                .ToArray();
+
+            return clientMessages;
+        });
+        
         app.MapGet("/get-chats", (HttpRequest request) =>
         {
             String sessionId = request.Headers.Authorization.ToString().Split("Bearer ")[1];

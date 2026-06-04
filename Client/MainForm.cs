@@ -21,7 +21,9 @@ namespace Client
                 .FromJson<ClientChat[]>();
 
             this.listBox1.Items.Clear();
-            this.listBox1.Items.AddRange(chats.Select((chat) => $"{chat.Title} ({chat.LastMessage})").ToArray());
+            this.listBox1
+                .Items
+                .AddRange(chats);
         }
 
         bool buttonClicked = false;
@@ -70,6 +72,23 @@ namespace Client
 
             this.sendMessageButton.BackColor = Color.Black;
             this.sendMessageButton.ForeColor = Color.White;
+        }
+
+        private void listBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ClientChat selectedChat = this.listBox1.SelectedItem as ClientChat;
+            int chatId = selectedChat.Id;
+
+            ClientMessage[] messages = $"http://localhost:5000/get-chat/{chatId}"
+              .GetJsonFromUrl((HttpRequestMessage request) =>
+              {
+                  request.AddBearerToken(this.SessionId);
+              })
+              .FromJson<ClientMessage[]>();
+
+            this.messagesTextBox.Text = messages
+                .Select((message) => $"{message.SenderName}: {message.Text}")
+                .Join("\n\n");
         }
     }
 }
