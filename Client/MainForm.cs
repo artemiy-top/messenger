@@ -14,11 +14,14 @@ namespace Client
             this.SessionId = sessionId;
 
             ClientChat[] chats = "http://localhost:5000/get-chats"
-                .PostJsonToUrl("", (HttpRequestMessage request) =>
+                .GetJsonFromUrl((HttpRequestMessage request) =>
                 {
                     request.AddBearerToken(this.SessionId);
                 })
                 .FromJson<ClientChat[]>();
+
+            this.listBox1.Items.Clear();
+            this.listBox1.Items.AddRange(chats.Select((chat) => $"{chat.Title} ({chat.LastMessage})").ToArray());
         }
 
         bool buttonClicked = false;

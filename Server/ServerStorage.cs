@@ -12,7 +12,11 @@ namespace Server
         public static List<User> Users = new List<User>
         {
             new User("John", "12345"),
+            new User("Jane", "23456"),
         };
-        public static List<Chat> Chats = new List<Chat>();
+        public static List<Chat> Chats = new List<Chat>
+        {
+            new Chat(Users[0], Users[1]),
+        };
     }
 }

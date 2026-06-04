@@ -61,7 +61,6 @@
             tableLayoutPanel3.SetColumnSpan(listBox1, 2);
             listBox1.Dock = DockStyle.Fill;
             listBox1.FormattingEnabled = true;
-            listBox1.Items.AddRange(new object[] { "Тишин", "Хуснуллин", "Некрылов", "Антонов" });
             listBox1.Location = new Point(3, 27);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(464, 750);
