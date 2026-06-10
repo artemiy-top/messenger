@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             listBox1 = new ListBox();
-            textBox1 = new TextBox();
+            newMessageTextBox = new TextBox();
             sendMessageButton = new Button();
             splitContainer1 = new SplitContainer();
             tabControl1 = new TabControl();
@@ -44,6 +45,7 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             messagesTextBox = new TextBox();
+            timer1 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -67,13 +69,14 @@
             listBox1.TabIndex = 0;
             listBox1.SelectedValueChanged += listBox1_SelectedValueChanged;
             // 
-            // textBox1
+            // newMessageTextBox
             // 
-            textBox1.Dock = DockStyle.Fill;
-            textBox1.Location = new Point(3, 3);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(727, 23);
-            textBox1.TabIndex = 1;
+            newMessageTextBox.Dock = DockStyle.Fill;
+            newMessageTextBox.Location = new Point(3, 3);
+            newMessageTextBox.Name = "newMessageTextBox";
+            newMessageTextBox.Size = new Size(727, 23);
+            newMessageTextBox.TabIndex = 1;
+            newMessageTextBox.KeyPress += newMessageTextBox_KeyPress;
             // 
             // sendMessageButton
             // 
@@ -84,6 +87,7 @@
             sendMessageButton.TabIndex = 3;
             sendMessageButton.Text = "Отправить";
             sendMessageButton.UseVisualStyleBackColor = true;
+            sendMessageButton.Click += sendMessageButton_Click;
             // 
             // splitContainer1
             // 
@@ -226,7 +230,7 @@
             tableLayoutPanel2.ColumnCount = 2;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
-            tableLayoutPanel2.Controls.Add(textBox1, 0, 0);
+            tableLayoutPanel2.Controls.Add(newMessageTextBox, 0, 0);
             tableLayoutPanel2.Controls.Add(sendMessageButton, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 777);
@@ -247,6 +251,12 @@
             messagesTextBox.ScrollBars = ScrollBars.Vertical;
             messagesTextBox.Size = new Size(833, 768);
             messagesTextBox.TabIndex = 4;
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 500;
+            timer1.Tick += timer1_Tick;
             // 
             // MainForm
             // 
@@ -275,7 +285,7 @@
         #endregion
 
         private ListBox listBox1;
-        private TextBox textBox1;
+        private TextBox newMessageTextBox;
         private Button sendMessageButton;
         private SplitContainer splitContainer1;
         private TextBox messagesTextBox;
@@ -290,5 +300,6 @@
         private Button addNewFriendButton;
         private Button removeAllFriendsButton;
         private Button enableDarkThemeButton;
+        private System.Windows.Forms.Timer timer1;
     }
 }

@@ -1,6 +1,7 @@
-﻿using Message = Shared.Message;
+﻿using ServiceStack;
+using ServiceStack.Model;
 using Shared;
-using ServiceStack;
+using Message = Shared.Message;
 
 namespace Client
 {
@@ -77,18 +78,63 @@ namespace Client
         private void listBox1_SelectedValueChanged(object sender, EventArgs e)
         {
             ClientChat selectedChat = this.listBox1.SelectedItem as ClientChat;
+            if (selectedChat == null)
+            {
+                this.messagesTextBox.Text = "";
+                return;
+            }
+
             int chatId = selectedChat.Id;
 
             ClientMessage[] messages = $"http://localhost:5000/get-chat/{chatId}"
-              .GetJsonFromUrl((HttpRequestMessage request) =>
-              {
-                  request.AddBearerToken(this.SessionId);
-              })
-              .FromJson<ClientMessage[]>();
+                .GetJsonFromUrl((HttpRequestMessage request) =>
+                {
+                    request.AddBearerToken(this.SessionId);
+                })
+                .FromJson<ClientMessage[]>();
 
             this.messagesTextBox.Text = messages
                 .Select((message) => $"{message.SenderName}: {message.Text}")
-                .Join("\n\n");
+                .Join("\r\n\r\n");
+
+            this.messagesTextBox.SelectionStart = this.messagesTextBox.Text.Length;
+            this.messagesTextBox.ScrollToCaret();
+        }
+
+        private void sendMessageButton_Click(object sender, EventArgs e)
+        {
+            ClientChat selectedChat = this.listBox1.SelectedItem as ClientChat;
+            if (selectedChat == null)
+            {
+                this.messagesTextBox.Text = "";
+                return;
+            }
+            int chatId = selectedChat.Id;
+
+            bool result = "http://localhost:5000/send-message"
+                 .PostJsonToUrl(new SendMessageRequest
+                 {
+                     ChatId = chatId,
+                     Message = this.newMessageTextBox.Text,
+                 },
+                 (HttpRequestMessage request) =>
+                 {
+                     request.AddBearerToken(this.SessionId);
+                 })
+                 .FromJson<bool>();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.listBox1_SelectedValueChanged(sender, e);
+        }
+
+        private void newMessageTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                this.sendMessageButton_Click(sender, e);
+            }
         }
     }
 }

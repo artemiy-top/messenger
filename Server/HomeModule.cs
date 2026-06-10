@@ -113,7 +113,20 @@ public class HomeModule : ICarterModule
         app.MapPost("/send-message", (HttpRequest request, SendMessageRequest messageRequest) =>
         {
             String sessionId = request.Headers.Authorization.ToString().Split("Bearer ")[1];
-            // TODO
+            User? user = ServerStorage.Users.First((user) => user.SessionId == sessionId);
+            if (user == null)
+            {
+                throw new Exception("Access denied!");
+            }
+
+            Chat? chat = ServerStorage.Chats.First((chat) => chat.Id == messageRequest.ChatId);
+            if (chat == null)
+            {
+                throw new Exception("Нет такого чата");
+            }
+
+            chat.Messages.Add(new Message(messageRequest.Message, user, DateTime.Now));
+            return true;
         });
     }
 }
