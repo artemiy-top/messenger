@@ -168,6 +168,7 @@
             addNewFriendButton.TabIndex = 2;
             addNewFriendButton.Text = "☺ Добавить контакт";
             addNewFriendButton.UseVisualStyleBackColor = true;
+            addNewFriendButton.Click += addNewFriendButton_Click;
             // 
             // tabPage2
             // 

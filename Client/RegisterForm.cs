@@ -58,5 +58,10 @@ namespace Client
             new MainForm(sessionId).ShowDialog();
             this.Close();
         }
+
+        private void loginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -128,7 +128,6 @@
             // 
             // loginLinkLabel
             // 
-            loginLinkLabel.Enabled = false;
             loginLinkLabel.Location = new Point(75, 274);
             loginLinkLabel.Name = "loginLinkLabel";
             loginLinkLabel.Size = new Size(78, 28);
@@ -136,6 +135,7 @@
             loginLinkLabel.TabStop = true;
             loginLinkLabel.Text = "Войти";
             loginLinkLabel.TextAlign = ContentAlignment.MiddleCenter;
+            loginLinkLabel.LinkClicked += loginLinkLabel_LinkClicked;
             // 
             // tableLayoutPanel3
             // 
@@ -196,6 +196,7 @@
             Controls.Add(loginTextBox);
             Controls.Add(passwordMaskedTextBox);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            MaximizeBox = false;
             Name = "RegisterForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Регистрация в Messenger";

@@ -46,5 +46,12 @@ namespace Client
                 this.loginButton_Click(sender, e);
             }
         }
+
+        private void registerLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Visible = false;
+            new RegisterForm().ShowDialog();
+            this.Visible = true;
+        }
     }
 }

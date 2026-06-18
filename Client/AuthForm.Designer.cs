@@ -35,7 +35,7 @@
             tableLayoutPanel2 = new TableLayoutPanel();
             label2 = new Label();
             loginButton = new Button();
-            linkLabel1 = new LinkLabel();
+            registerLinkLabel = new LinkLabel();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
@@ -120,29 +120,30 @@
             loginButton.UseVisualStyleBackColor = true;
             loginButton.Click += loginButton_Click;
             // 
-            // linkLabel1
+            // registerLinkLabel
             // 
-            linkLabel1.Enabled = false;
-            linkLabel1.Location = new Point(75, 187);
-            linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(78, 23);
-            linkLabel1.TabIndex = 8;
-            linkLabel1.TabStop = true;
-            linkLabel1.Text = "Регистрация";
-            linkLabel1.TextAlign = ContentAlignment.MiddleCenter;
+            registerLinkLabel.Location = new Point(75, 187);
+            registerLinkLabel.Name = "registerLinkLabel";
+            registerLinkLabel.Size = new Size(78, 23);
+            registerLinkLabel.TabIndex = 8;
+            registerLinkLabel.TabStop = true;
+            registerLinkLabel.Text = "Регистрация";
+            registerLinkLabel.TextAlign = ContentAlignment.MiddleCenter;
+            registerLinkLabel.LinkClicked += registerLinkLabel_LinkClicked;
             // 
             // AuthForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(227, 221);
-            Controls.Add(linkLabel1);
+            Controls.Add(registerLinkLabel);
             Controls.Add(loginButton);
             Controls.Add(tableLayoutPanel2);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(loginTextBox);
             Controls.Add(passwordMaskedTextBox);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            MaximizeBox = false;
             Name = "AuthForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Вход в Messenger";
@@ -163,6 +164,6 @@
         private TableLayoutPanel tableLayoutPanel2;
         private Label label2;
         private Button loginButton;
-        private LinkLabel linkLabel1;
+        private LinkLabel registerLinkLabel;
     }
 }

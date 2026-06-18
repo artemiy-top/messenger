@@ -2,6 +2,7 @@
 using Server;
 using Shared;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -31,6 +32,38 @@ public class HomeModule : ICarterModule
             {
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
             }
+        });
+
+        app.MapGet("/users", () =>
+        {
+            List<ClientUser> clientUsers = ServerStorage.Users
+                .Select(user => new ClientUser
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                })
+                .ToList();
+
+            return clientUsers;
+        });
+
+        app.MapPost("/add-friend", (HttpRequest request, AddFriendRequest addFriendRequest) =>
+        {
+            String sessionId = request.Headers.Authorization.ToString().Split("Bearer ")[1];
+            User? user = ServerStorage.Users.First((user) => user.SessionId == sessionId);
+            if (user == null)
+            {
+                throw new Exception("Access denied!");
+            }
+
+            User? newFriendUser = ServerStorage.Users.FirstOrDefault(user => user.Id == addFriendRequest.Id);
+            if (newFriendUser == null)
+            {
+                throw new Exception("No that user!");
+            }
+
+            ServerStorage.Chats.Add(new Chat(user, newFriendUser));
+            return true;
         });
 
         app.MapPost("/auth", (AuthRequest authRequest) =>
@@ -70,13 +103,13 @@ public class HomeModule : ICarterModule
         app.MapGet("/get-chat/{chatId}", (HttpRequest request, int chatId) =>
         {
             String sessionId = request.Headers.Authorization.ToString().Split("Bearer ")[1];
-            User? user = ServerStorage.Users.First((user) => user.SessionId == sessionId);
+            User? user = ServerStorage.Users.FirstOrDefault((user) => user.SessionId == sessionId);
             if (user == null)
             {
                 throw new Exception("Access denied!");
             }
 
-            Chat? chat = ServerStorage.Chats.First((chat) => chat.Id == chatId);
+            Chat? chat = ServerStorage.Chats.FirstOrDefault((chat) => chat.Id == chatId);
             if (chat == null)
             {
                 throw new Exception("Такого чата нет!");

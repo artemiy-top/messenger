@@ -14,6 +14,8 @@ namespace Server
             new User("John", "12345"), // [0]
             new User("Jane", "23456"), // [1]
             new User("Donald", "34567"), // [2]
+            new User("Daniil", "111"),
+            new User("Kate", "000"),
         };
         public static List<Chat> Chats = new List<Chat>
         {

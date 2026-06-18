@@ -136,5 +136,22 @@ namespace Client
                 this.sendMessageButton_Click(sender, e);
             }
         }
+
+        private void addNewFriendButton_Click(object sender, EventArgs e)
+        {
+            new AddFriendForm(this.SessionId).ShowDialog();
+
+            ClientChat[] chats = "http://localhost:5000/get-chats"
+               .GetJsonFromUrl((HttpRequestMessage request) =>
+               {
+                   request.AddBearerToken(this.SessionId);
+               })
+               .FromJson<ClientChat[]>();
+
+            this.listBox1.Items.Clear();
+            this.listBox1
+                .Items
+                .AddRange(chats);
+        }
     }
 }
