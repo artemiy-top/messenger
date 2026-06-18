@@ -50,7 +50,21 @@ public class HomeModule : ICarterModule
 
         app.MapPost("/register", (RegisterRequest registerRequest) =>
         {
-            // TODO
+            User? user = ServerFunctions.Register(registerRequest.Name, registerRequest.Password);
+            if (user == null)
+            {
+                return "";
+            }
+
+            string? sessionId = ServerFunctions.Auth(registerRequest.Name, registerRequest.Password);
+            if (sessionId != null)
+            {
+                return sessionId;
+            }
+            else
+            {
+                return "";
+            }
         });
 
         app.MapGet("/get-chat/{chatId}", (HttpRequest request, int chatId) =>

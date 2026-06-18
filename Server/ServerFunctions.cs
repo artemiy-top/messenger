@@ -9,8 +9,13 @@ namespace Server
 {
     public class ServerFunctions
     {
-        public static User Register(string userName, string password)
+        public static User? Register(string userName, string password)
         {
+            User? alreadyUser = ServerStorage.Users.FirstOrDefault(user => user.Name == userName);
+            if (alreadyUser != null)
+            {
+                return null;
+            }
             User newUser = new User(userName, password);
             ServerStorage.Users.Add(newUser);
             return newUser;
